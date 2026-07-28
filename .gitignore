@@ -1,0 +1,8 @@
+node_modules/
+package.json
+package-lock.json
+shots.mjs
+emt.mjs
+.orig/
+.claude/
+portfolio.html

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selected Work — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;450;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#E7E8EC;
+    --surface:#FFFFFF;
+    --ink:#14161B;
+    --muted:#676C77;
+    --faint:#9297A2;
+    --line:#D2D4DA;
+    --line-strong:#B9BCC4;
+    --accent:#2743E0;
+    --accent-ink:#1B2FA8;
+    --radius:14px;
+    --maxw:1080px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Inter",system-ui,sans-serif;
+    font-weight:450;line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  .mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-weight:400;letter-spacing:0.02em}
+  .eyebrow{
+    font-family:"JetBrains Mono",monospace;font-size:12px;
+    letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);
+  }
+  a{color:inherit}
+
+  /* Top bar */
+  .topbar{
+    border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50;
+    background:color-mix(in srgb, var(--paper) 82%, transparent);
+    backdrop-filter:saturate(140%) blur(10px);
+  }
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+  .brandmark{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:16px;letter-spacing:-0.01em}
+  .status{display:flex;align-items:center;gap:8px}
+  .status .dot{
+    width:8px;height:8px;border-radius:50%;background:var(--accent);
+    animation:pulse 2.6s infinite;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 45%,transparent)}
+    70%{box-shadow:0 0 0 7px transparent}
+    100%{box-shadow:0 0 0 0 transparent}
+  }
+  .status .eyebrow{color:var(--ink)}
+
+  /* Hero */
+  .hero{padding:96px 0 68px;border-bottom:1px solid var(--line)}
+  .hero .eyebrow{display:block;margin-bottom:26px}
+  .hero h1{
+    font-family:"Bricolage Grotesque",sans-serif;font-weight:700;
+    font-size:clamp(38px,6.4vw,74px);line-height:1.02;
+    letter-spacing:-0.03em;max-width:16ch;
+  }
+  .hero h1 .accent{color:var(--accent)}
+  .hero .lede{
+    margin-top:30px;font-size:clamp(17px,2vw,21px);
+    color:var(--muted);max-width:52ch;line-height:1.5;
+  }
+  .meta-rail{margin-top:44px;display:flex;flex-wrap:wrap;gap:10px 14px}
+  .chip{
+    font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:0.03em;
+    padding:7px 12px;border:1px solid var(--line-strong);border-radius:100px;
+    color:var(--muted);background:var(--surface);
+  }
+
+  /* Work index */
+  .work-head{display:flex;align-items:baseline;justify-content:space-between;padding:56px 0 8px}
+  .work-head h2{
+    font-family:"JetBrains Mono",monospace;font-weight:500;font-size:13px;
+    letter-spacing:0.14em;text-transform:uppercase;color:var(--ink);
+  }
+  .work-head .count{font-size:12px;color:var(--faint)}
+
+  .project{border-top:1px solid var(--line-strong);padding:40px 0 52px}
+  .p-head{
+    display:grid;grid-template-columns:auto 1fr;align-items:baseline;
+    gap:18px;margin-bottom:22px;
+  }
+  .p-index{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--faint);padding-top:4px}
+  .p-title{
+    font-family:"Bricolage Grotesque",sans-serif;font-weight:600;
+    font-size:clamp(24px,3.4vw,34px);letter-spacing:-0.02em;line-height:1.1;
+  }
+  .p-sector{
+    display:block;margin-top:8px;font-family:"JetBrains Mono",monospace;
+    font-size:12px;letter-spacing:0.04em;color:var(--muted);
+  }
+  .p-desc{max-width:60ch;color:var(--muted);font-size:16px;margin:-4px 0 24px 0}
+  .p-desc .role{color:var(--ink);font-weight:500}
+
+  /* Preview / screenshot */
+  .shot{
+    position:relative;aspect-ratio:1440/900;border-radius:var(--radius);
+    overflow:hidden;border:1px solid var(--line-strong);background:var(--surface);
+    box-shadow:0 1px 2px rgba(20,22,27,.04);
+  }
+  .shot img{
+    position:absolute;inset:0;width:100%;height:100%;
+    object-fit:cover;object-position:top center;z-index:2;display:block;
+  }
+  .shot-fallback{
+    position:absolute;inset:0;z-index:1;
+    display:flex;flex-direction:column;justify-content:space-between;padding:24px;
+    background:radial-gradient(120% 120% at 100% 0%, #F3F4F7 0%, #E4E6EB 55%, #DADCE2 100%);
+  }
+  .shot-fallback .fb-top{
+    display:flex;justify-content:space-between;align-items:center;
+    font-family:"JetBrains Mono",monospace;font-size:11px;
+    letter-spacing:0.08em;text-transform:uppercase;color:var(--faint);
+  }
+  .shot-fallback .fb-name{
+    font-family:"Bricolage Grotesque",sans-serif;font-weight:700;
+    font-size:clamp(26px,4vw,44px);letter-spacing:-0.02em;color:#C4C7CE;line-height:1;
+  }
+  .shot.locked .shot-fallback{
+    background:radial-gradient(120% 120% at 100% 0%, #EDEEF2 0%, #E1E3E9 60%, #D6D8DF 100%);
+  }
+  .lock-tag{
+    display:inline-flex;align-items:center;gap:7px;
+    font-family:"JetBrains Mono",monospace;font-size:11px;
+    letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);
+    border:1px solid var(--line-strong);background:var(--surface);
+    padding:5px 10px;border-radius:100px;align-self:flex-start;
+  }
+
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  /* Contact */
+  .contact{border-top:1px solid var(--line-strong);padding:88px 0 40px}
+  .contact h2{
+    font-family:"Bricolage Grotesque",sans-serif;font-weight:700;
+    font-size:clamp(32px,5.4vw,60px);letter-spacing:-0.03em;line-height:1.02;max-width:16ch;
+  }
+  .contact p{margin-top:18px;color:var(--muted);max-width:48ch;font-size:17px}
+  .cta-row{margin-top:34px;display:flex;flex-wrap:wrap;gap:12px}
+  .btn{
+    display:inline-flex;align-items:center;gap:9px;text-decoration:none;
+    font-weight:500;font-size:15px;padding:13px 22px;border-radius:100px;
+    transition:transform .2s ease,background .2s ease,border-color .2s ease;
+  }
+  .btn-primary{background:var(--ink);color:var(--paper)}
+  .btn-primary:hover{background:var(--accent);transform:translateY(-1px)}
+  .btn-ghost{border:1px solid var(--line-strong);color:var(--ink)}
+  .btn-ghost:hover{border-color:var(--ink);transform:translateY(-1px)}
+  .btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+  .colophon{
+    margin-top:72px;padding-top:22px;border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+    font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.04em;color:var(--faint);
+  }
+
+  @media (max-width:640px){
+    .wrap{padding:0 20px}
+    .hero{padding:64px 0 48px}
+    .status .eyebrow span{display:none}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;scroll-behavior:auto}
+    .reveal{opacity:1;transform:none;transition:none}
+  }
+</style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="wrap">
+      <span class="brandmark">James Filios</span>
+      <span class="status">
+        <span class="dot" aria-hidden="true"></span>
+        <span class="eyebrow">Open to work <span>— full-time &amp; freelance</span></span>
+      </span>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <span class="eyebrow">UI / UX · Frontend Design</span>
+        <h1>Designing precise, considered frontends for <span class="accent">SaaS</span> &amp; the companies behind them.</h1>
+        <p class="lede">I take products and brands from concept to polished, shippable interface — from aerospace and finance site redesigns to full end-to-end SaaS applications.</p>
+        <div class="meta-rail">
+          <span class="chip">Product UI</span>
+          <span class="chip">Web design</span>
+          <span class="chip">UX &amp; flows</span>
+          <span class="chip">Frontend build</span>
+          <span class="chip">Design systems</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <div class="work-head">
+        <h2>Index — Selected Work</h2>
+        <span class="count mono">05 projects</span>
+      </div>
+
+      <!-- 01 WGI -->
+      <article class="project reveal">
+        <div class="p-head">
+          <span class="p-index">01</span>
+          <div>
+            <h3 class="p-title">WGI — Website Redesign</h3>
+            <span class="p-sector">Sector: Aerospace · Concept, 3 directions</span>
+          </div>
+        </div>
+        <p class="p-desc"><span class="role">Concept &amp; UI design.</span> Three distinct concept directions reimagining the web presence of an aerospace engineering firm.</p>
+        <div class="shot">
+          <div class="shot-fallback" aria-hidden="true">
+            <div class="fb-top"><span>Screenshot</span><span>WGI</span></div>
+            <div class="fb-name">WGI</div>
+          </div>
+          <img src="images/wgi.jpg" alt="Screenshot of WGI">
+        </div>
+      </article>
+
+      <!-- 02 Aspen -->
+      <article class="project reveal">
+        <div class="p-head">
+          <span class="p-index">02</span>
+          <div>
+            <h3 class="p-title">Aspen Private Capital — Redesign</h3>
+            <span class="p-sector">Sector: Finance / Investment · Concept</span>
+          </div>
+        </div>
+        <p class="p-desc"><span class="role">Concept &amp; UI design.</span> Concept directions recreating the site for an investment capital firm — refined, trust-forward, and considered.</p>
+        <div class="shot">
+          <div class="shot-fallback" aria-hidden="true">
+            <div class="fb-top"><span>Screenshot</span><span>Aspen</span></div>
+            <div class="fb-name">Aspen</div>
+          </div>
+          <img src="images/aspen.jpg" alt="Screenshot of Aspen Private Capital">
+        </div>
+      </article>
+
+      <!-- 03 Deepform -->
+      <article class="project reveal">
+        <div class="p-head">
+          <span class="p-index">03</span>
+          <div>
+            <h3 class="p-title">Deepform</h3>
+            <span class="p-sector">Sector: SaaS / Survey tools · Product frontend</span>
+          </div>
+        </div>
+        <p class="p-desc"><span class="role">Frontend &amp; UX design.</span> The frontend for a survey-taking SaaS application — clean, focused, and built to keep respondents moving.</p>
+        <div class="shot">
+          <div class="shot-fallback" aria-hidden="true">
+            <div class="fb-top"><span>Screenshot</span><span>Deepform</span></div>
+            <div class="fb-name">Deepform</div>
+          </div>
+          <img src="images/deepform.png" alt="Screenshot of Deepform">
+        </div>
+      </article>
+
+      <!-- 04 Chronos -->
+      <article class="project reveal">
+        <div class="p-head">
+          <span class="p-index">04</span>
+          <div>
+            <h3 class="p-title">Chronos</h3>
+            <span class="p-sector">Sector: SaaS / Productivity · Time tracking</span>
+          </div>
+        </div>
+        <p class="p-desc"><span class="role">UI &amp; UX design.</span> A simple, uncluttered time-tracking application — designed and built to make logging hours effortless.</p>
+        <div class="shot">
+          <div class="shot-fallback" aria-hidden="true">
+            <div class="fb-top"><span>Screenshot</span><span>Chronos</span></div>
+            <div class="fb-name">Chronos</div>
+          </div>
+          <img src="images/chronos.png" alt="Screenshot of Chronos">
+        </div>
+      </article>
+
+      <!-- 05 EMT -->
+      <article class="project reveal">
+        <div class="p-head">
+          <span class="p-index">05</span>
+          <div>
+            <h3 class="p-title">EMT — Mail Analytics</h3>
+            <span class="p-sector">Sector: SaaS / Marketing · Full application</span>
+          </div>
+        </div>
+        <p class="p-desc"><span class="role">End-to-end product design.</span> An AI-powered mail-tracking platform that surfaces analytics across large mail campaigns. I designed the entire application.</p>
+        <div class="shot">
+          <div class="shot-fallback" aria-hidden="true">
+            <div class="fb-top"><span>Screenshot</span><span>EMT</span></div>
+            <div class="fb-name">EMT</div>
+          </div>
+          <img src="images/emt.png" alt="Screenshot of EMT">
+        </div>
+      </article>
+
+    </section>
+
+    <section class="contact">
+      <div class="wrap">
+        <span class="eyebrow" style="display:block;margin-bottom:22px">Get in touch</span>
+        <h2>Have a product that needs a sharper frontend?</h2>
+        <p>I'm currently open to full-time roles and select freelance work. The fastest way to reach me is email.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="mailto:jamesfilios@gmail.com">Email me →</a>
+          <a class="btn btn-ghost" href="https://www.linkedin.com/in/james-filios-b8139717b/" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn btn-ghost" href="https://github.com/filio623" target="_blank" rel="noopener">GitHub</a>
+        </div>
+        <div class="colophon">
+          <span>© 2026 James Filios</span>
+          <span>Designed &amp; built by hand</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+<script>
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
